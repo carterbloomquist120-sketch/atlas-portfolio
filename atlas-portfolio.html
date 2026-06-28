@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Atlas Operations — Freelance Ops Analytics</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #0B1120;
+  --navy-2: #111827;
+  --navy-3: #1a2538;
+  --navy-4: #243047;
+  --off-white: #F0F4FF;
+  --muted: #8899BB;
+  --muted-2: #6074A0;
+  --accent: #3B82F6;
+  --accent-light: #93C5FD;
+  --success: #10B981;
+  --warning: #F59E0B;
+  --danger: #EF4444;
+  --border: rgba(136,153,187,0.15);
+  --border-strong: rgba(136,153,187,0.28);
+  --mono: 'IBM Plex Mono', monospace;
+  --sans: 'Inter', system-ui, sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--navy);color:var(--off-white);font-family:var(--sans);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:100;background:rgba(11,17,32,0.92);backdrop-filter:blur(12px);border-bottom:0.5px solid var(--border);padding:0 2rem}
+.nav-inner{max-width:1100px;margin:0 auto;height:56px;display:flex;align-items:center;justify-content:space-between}
+.nav-logo{font-family:var(--mono);font-size:14px;font-weight:500;color:var(--off-white);display:flex;align-items:center;gap:10px}
+.nav-logo-mark{width:30px;height:30px;background:var(--accent);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:500;color:#fff}
+.nav-links{display:flex;gap:2rem}
+.nav-links a{font-size:13px;color:var(--muted);transition:color .2s}
+.nav-links a:hover{color:var(--off-white)}
+.nav-cta{font-size:13px;font-family:var(--mono);background:var(--accent);color:#fff;padding:7px 18px;border-radius:6px;font-weight:500;transition:background .2s}
+.nav-cta:hover{background:#2563EB}
+
+/* SECTIONS */
+section{padding:5rem 2rem}
+.container{max-width:1100px;margin:0 auto}
+
+/* HERO */
+#hero{padding:5rem 2rem 3rem}
+.hero-eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-light);margin-bottom:1.25rem}
+.hero-headline{font-size:clamp(32px,5vw,58px);font-weight:300;line-height:1.12;letter-spacing:-0.02em;color:var(--off-white);margin-bottom:1.25rem;max-width:760px}
+.hero-headline span{color:var(--accent-light);font-weight:500}
+.hero-sub{font-size:16px;color:var(--muted);max-width:540px;line-height:1.7;margin-bottom:2rem}
+.hero-stats{display:flex;gap:2.5rem;margin-bottom:2.5rem;flex-wrap:wrap}
+.hero-stat-val{font-family:var(--mono);font-size:26px;font-weight:500;color:var(--off-white)}
+.hero-stat-label{font-size:12px;color:var(--muted);margin-top:2px}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap}
+.btn-primary{font-family:var(--mono);font-size:13px;font-weight:500;background:var(--accent);color:#fff;padding:11px 24px;border-radius:6px;transition:background .2s;border:none;cursor:pointer}
+.btn-primary:hover{background:#2563EB}
+.btn-ghost{font-family:var(--mono);font-size:13px;color:var(--muted);padding:11px 24px;border-radius:6px;border:0.5px solid var(--border-strong);transition:all .2s}
+.btn-ghost:hover{color:var(--off-white);border-color:var(--muted)}
+
+/* DASHBOARD EMBED */
+#demo{padding:0 2rem 5rem}
+.demo-label{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:1rem;display:flex;align-items:center;gap:8px}
+.demo-label::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--success);display:inline-block;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.demo-frame{background:var(--navy-2);border:0.5px solid var(--border-strong);border-radius:12px;overflow:hidden}
+.demo-chrome{background:var(--navy-3);padding:10px 16px;border-bottom:0.5px solid var(--border);display:flex;align-items:center;gap:8px}
+.chrome-dot{width:10px;height:10px;border-radius:50%}
+.chrome-url{flex:1;background:var(--navy-4);border-radius:4px;padding:4px 12px;font-family:var(--mono);font-size:11px;color:var(--muted);margin:0 12px}
+.demo-content{padding:1.5rem}
+
+/* KPI STRIP */
+.kpi-strip{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:1.25rem}
+.kpi-tile{background:var(--navy-3);border:0.5px solid var(--border);border-radius:8px;padding:.85rem 1rem}
+.kpi-tile-label{font-size:10px;color:var(--muted);margin-bottom:5px;text-transform:uppercase;letter-spacing:.05em}
+.kpi-tile-val{font-family:var(--mono);font-size:20px;font-weight:500;color:var(--off-white)}
+.kpi-tile-delta{font-size:10px;margin-top:3px;font-family:var(--mono)}
+.kpi-tile-val.red{color:#FCA5A5}
+.kpi-tile-val.amber{color:#FCD34D}
+
+/* CHARTS GRID */
+.charts-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+.chart-card{background:var(--navy-3);border:0.5px solid var(--border);border-radius:10px;padding:1rem}
+.chart-card-title{font-size:11px;color:var(--muted);margin-bottom:.75rem;display:flex;align-items:center;gap:6px;text-transform:uppercase;letter-spacing:.05em;font-family:var(--mono)}
+
+/* STORE HEALTH */
+.store-list{display:flex;flex-direction:column;gap:0}
+.store-item{display:flex;align-items:center;gap:10px;padding:6px 0;border-bottom:0.5px solid var(--border)}
+.store-item:last-child{border-bottom:none}
+.store-item-name{font-size:11px;color:var(--muted);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.store-bar-track{flex:0 0 70px;height:5px;background:var(--navy-4);border-radius:3px;overflow:hidden}
+.store-bar-fill{height:100%;border-radius:3px}
+.store-item-score{font-family:var(--mono);font-size:11px;width:24px;text-align:right}
+
+/* INV CHART */
+.inv-bars{display:flex;flex-direction:column;gap:6px;padding-top:4px}
+.inv-row{display:flex;align-items:center;gap:8px}
+.inv-name{font-size:10px;color:var(--muted);width:90px;flex-shrink:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.inv-track{flex:1;height:14px;background:var(--navy-4);border-radius:3px;overflow:hidden;position:relative}
+.inv-fill{height:100%;border-radius:3px;display:flex;align-items:center;padding-left:6px}
+.inv-fill-label{font-family:var(--mono);font-size:9px;color:#fff;font-weight:500;white-space:nowrap}
+
+/* DECISION CARDS */
+.decision-cards{display:flex;flex-direction:column;gap:8px}
+.dc{border-radius:8px;padding:.85rem 1rem;border:0.5px solid}
+.dc-red{background:rgba(239,68,68,0.08);border-color:rgba(239,68,68,0.3)}
+.dc-amber{background:rgba(245,158,11,0.08);border-color:rgba(245,158,11,0.3)}
+.dc-head{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:5px}
+.dc-title{font-size:12px;font-weight:500;font-family:var(--mono)}
+.dc-red .dc-title{color:#FCA5A5}
+.dc-amber .dc-title{color:#FCD34D}
+.dc-body{font-size:11px;color:var(--muted);line-height:1.55}
+.sev{font-size:9px;font-weight:500;padding:2px 7px;border-radius:10px;white-space:nowrap;font-family:var(--mono)}
+.sev-high{background:rgba(239,68,68,0.2);color:#FCA5A5}
+.sev-med{background:rgba(245,158,11,0.2);color:#FCD34D}
+
+/* MONTHLY CHART */
+.bar-chart{display:flex;align-items:flex-end;gap:4px;height:80px;padding-top:8px}
+.bar-col{display:flex;flex-direction:column;align-items:center;gap:3px;flex:1}
+.bar-fill{width:100%;border-radius:2px 2px 0 0;background:var(--accent);transition:opacity .2s;min-height:3px}
+.bar-label{font-family:var(--mono);font-size:8px;color:var(--muted)}
+.bar-fill.peak{background:#60A5FA}
+
+/* DONUT */
+.cat-legend{display:flex;flex-direction:column;gap:5px;padding-top:4px}
+.cat-leg-row{display:flex;align-items:center;gap:7px}
+.cat-leg-dot{width:8px;height:8px;border-radius:2px;flex-shrink:0}
+.cat-leg-name{font-size:11px;color:var(--muted);flex:1}
+.cat-leg-pct{font-family:var(--mono);font-size:11px;color:var(--off-white)}
+.cat-bar-track{flex:0 0 60px;height:4px;background:var(--navy-4);border-radius:2px;overflow:hidden}
+.cat-bar-fill{height:100%;border-radius:2px}
+
+/* SERVICES */
+#services{background:var(--navy-2);border-top:0.5px solid var(--border);border-bottom:0.5px solid var(--border)}
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:3rem}
+.service-card{background:var(--navy-3);border:0.5px solid var(--border);border-radius:12px;padding:1.75rem}
+.service-card.featured{border-color:var(--accent);background:rgba(59,130,246,0.06)}
+.service-tag{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent-light);margin-bottom:.75rem}
+.service-name{font-size:19px;font-weight:400;margin-bottom:.5rem}
+.service-price{font-family:var(--mono);font-size:24px;font-weight:500;color:var(--off-white);margin-bottom:1rem}
+.service-price span{font-size:13px;color:var(--muted);font-weight:400}
+.service-divider{height:0.5px;background:var(--border);margin-bottom:1rem}
+.service-items{list-style:none;display:flex;flex-direction:column;gap:7px}
+.service-items li{font-size:13px;color:var(--muted);display:flex;align-items:flex-start;gap:8px}
+.service-items li::before{content:'→';color:var(--accent-light);font-family:var(--mono);font-size:12px;flex-shrink:0;margin-top:2px}
+
+/* CASE STUDY */
+#casestudy{padding:5rem 2rem}
+.cs-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start;margin-top:3rem}
+.cs-label{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:.5rem}
+.cs-headline{font-size:28px;font-weight:300;line-height:1.25;margin-bottom:1rem}
+.cs-body{font-size:14px;color:var(--muted);line-height:1.75;margin-bottom:1.5rem}
+.cs-findings{display:flex;flex-direction:column;gap:12px}
+.cs-finding{background:var(--navy-2);border:0.5px solid var(--border);border-left:2px solid var(--accent);border-radius:0 8px 8px 0;padding:.85rem 1rem}
+.cs-finding-val{font-family:var(--mono);font-size:22px;font-weight:500;color:var(--off-white)}
+.cs-finding-desc{font-size:12px;color:var(--muted);margin-top:3px}
+.cs-meta{display:flex;flex-direction:column;gap:8px}
+.cs-meta-row{display:flex;gap:1rem;padding:8px 0;border-bottom:0.5px solid var(--border)}
+.cs-meta-row:last-child{border-bottom:none}
+.cs-meta-key{font-family:var(--mono);font-size:11px;color:var(--muted);width:110px;flex-shrink:0}
+.cs-meta-val{font-size:13px;color:var(--off-white)}
+
+/* SECTION HEADER */
+.section-eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent-light);margin-bottom:.75rem}
+.section-title{font-size:clamp(24px,3vw,36px);font-weight:300;line-height:1.2;margin-bottom:.75rem}
+.section-sub{font-size:15px;color:var(--muted);max-width:500px;line-height:1.65}
+
+/* CONTACT */
+#contact{background:var(--navy-2);border-top:0.5px solid var(--border)}
+.contact-inner{max-width:540px}
+.contact-form{display:flex;flex-direction:column;gap:14px;margin-top:2rem}
+.form-field{display:flex;flex-direction:column;gap:6px}
+.form-label{font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:.05em;text-transform:uppercase}
+.form-input{background:var(--navy-3);border:0.5px solid var(--border-strong);border-radius:6px;padding:10px 14px;font-family:var(--sans);font-size:14px;color:var(--off-white);outline:none;transition:border-color .2s;width:100%}
+.form-input:focus{border-color:var(--accent)}
+.form-input::placeholder{color:var(--muted-2)}
+textarea.form-input{min-height:100px;resize:vertical}
+.form-submit{font-family:var(--mono);font-size:13px;font-weight:500;background:var(--accent);color:#fff;padding:12px 28px;border-radius:6px;border:none;cursor:pointer;transition:background .2s;width:fit-content}
+.form-submit:hover{background:#2563EB}
+.form-note{font-size:12px;color:var(--muted);margin-top:.5rem}
+
+/* FOOTER */
+footer{padding:2rem;border-top:0.5px solid var(--border)}
+.footer-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+.footer-copy{font-family:var(--mono);font-size:11px;color:var(--muted)}
+.footer-links{display:flex;gap:1.5rem}
+.footer-links a{font-family:var(--mono);font-size:11px;color:var(--muted);transition:color .2s}
+.footer-links a:hover{color:var(--off-white)}
+
+/* DIVIDER */
+.divider{height:0.5px;background:var(--border);margin:0}
+
+@media(max-width:768px){
+  .kpi-strip{grid-template-columns:repeat(2,1fr)}
+  .charts-grid{grid-template-columns:1fr}
+  .services-grid{grid-template-columns:1fr}
+  .cs-grid{grid-template-columns:1fr}
+  .hero-stats{gap:1.5rem}
+  nav .nav-links{display:none}
+  .hero-headline{font-size:28px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo">
+      <div class="nav-logo-mark">A</div>
+      Atlas Operations
+    </div>
+    <div class="nav-links">
+      <a href="#demo">Live demo</a>
+      <a href="#services">Services</a>
+      <a href="#casestudy">Case study</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <a href="#contact" class="nav-cta">Get in touch</a>
+  </div>
+</nav>
+
+<section id="hero">
+  <div class="container">
+    <div class="hero-eyebrow">Freelance operations analytics</div>
+    <h1 class="hero-headline">Turn messy ops data into<br><span>decisions that move the needle</span></h1>
+    <p class="hero-sub">I build custom analytics platforms for retail, e-commerce, and logistics operators — surfacing labor waste, inventory problems, and underperforming locations before they cost you.</p>
+    <div class="hero-stats">
+      <div>
+        <div class="hero-stat-val">$126K</div>
+        <div class="hero-stat-label">Labor waste identified in one engagement</div>
+      </div>
+      <div>
+        <div class="hero-stat-val">$48K</div>
+        <div class="hero-stat-label">Inventory cash freed up</div>
+      </div>
+      <div>
+        <div class="hero-stat-val">8 stores</div>
+        <div class="hero-stat-label">Covered in a single platform</div>
+      </div>
+    </div>
+    <div class="hero-actions">
+      <a href="#demo" class="btn-primary">See the live demo →</a>
+      <a href="#contact" class="btn-ghost">Start a conversation</a>
+    </div>
+  </div>
+</section>
+
+<section id="demo" style="padding-top:0">
+  <div class="container">
+    <div class="demo-label">Live demo — Atlas Operations Platform · specialty retail · 8 locations · FY 2024</div>
+    <div class="demo-frame">
+      <div class="demo-chrome">
+        <div class="chrome-dot" style="background:#EF4444"></div>
+        <div class="chrome-dot" style="background:#F59E0B"></div>
+        <div class="chrome-dot" style="background:#10B981"></div>
+        <div class="chrome-url">atlas-ops.io / executive-summary</div>
+      </div>
+      <div class="demo-content">
+
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.1rem;padding-bottom:.85rem;border-bottom:0.5px solid var(--border)">
+          <div>
+            <div style="font-family:var(--mono);font-size:13px;font-weight:500">Executive summary</div>
+            <div style="font-size:11px;color:var(--muted);margin-top:2px">FY 2024 · 8 locations · as of Dec 31</div>
+          </div>
+          <div style="display:flex;gap:6px">
+            <span style="font-family:var(--mono);font-size:10px;padding:3px 9px;border-radius:10px;background:rgba(16,185,129,0.12);color:#6EE7B7">+4.5% WoW</span>
+            <span style="font-family:var(--mono);font-size:10px;padding:3px 9px;border-radius:10px;background:rgba(245,158,11,0.12);color:#FCD34D">3 alerts</span>
+          </div>
+        </div>
+
+        <div class="kpi-strip">
+          <div class="kpi-tile">
+            <div class="kpi-tile-label">Annual revenue</div>
+            <div class="kpi-tile-val">$10.25M</div>
+            <div class="kpi-tile-delta" style="color:#6EE7B7">↑ +20.4% MoM</div>
+          </div>
+          <div class="kpi-tile">
+            <div class="kpi-tile-label">Gross margin</div>
+            <div class="kpi-tile-val">59.7%</div>
+            <div class="kpi-tile-delta" style="color:#6EE7B7">✓ on target</div>
+          </div>
+          <div class="kpi-tile">
+            <div class="kpi-tile-label">Avg ticket</div>
+            <div class="kpi-tile-val">$16.12</div>
+            <div class="kpi-tile-delta" style="color:var(--muted)">635K transactions</div>
+          </div>
+          <div class="kpi-tile">
+            <div class="kpi-tile-label">Labor %</div>
+            <div class="kpi-tile-val red">23.1%</div>
+            <div class="kpi-tile-delta" style="color:#FCA5A5">⚠ S02 at 41.4%</div>
+          </div>
+          <div class="kpi-tile">
+            <div class="kpi-tile-label">Active alerts</div>
+            <div class="kpi-tile-val amber">3</div>
+            <div class="kpi-tile-delta" style="color:#FCD34D">needs attention</div>
+          </div>
+        </div>
+
+        <div class="charts-grid">
+          <div class="chart-card">
+            <div class="chart-card-title">Monthly revenue</div>
+            <div class="bar-chart" id="monthlyBars"></div>
+            <div style="display:flex;justify-content:space-between;margin-top:4px">
+              <span style="font-family:var(--mono);font-size:8px;color:var(--muted)">Jan</span>
+              <span style="font-family:var(--mono);font-size:8px;color:var(--muted)">Dec</span>
+            </div>
+          </div>
+
+          <div class="chart-card">
+            <div class="chart-card-title">Revenue by category</div>
+            <div class="cat-legend">
+              <div class="cat-leg-row"><div class="cat-leg-dot" style="background:#3B82F6"></div><span class="cat-leg-name">Beverages</span><div class="cat-bar-track"><div class="cat-bar-fill" style="width:100%;background:#3B82F6"></div></div><span class="cat-leg-pct">28%</span></div>
+              <div class="cat-leg-row"><div class="cat-leg-dot" style="background:#10B981"></div><span class="cat-leg-name">Wellness</span><div class="cat-bar-track"><div class="cat-bar-fill" style="width:89%;background:#10B981"></div></div><span class="cat-leg-pct">25%</span></div>
+              <div class="cat-leg-row"><div class="cat-leg-dot" style="background:#F59E0B"></div><span class="cat-leg-name">Snacks & food</span><div class="cat-bar-track"><div class="cat-bar-fill" style="width:79%;background:#F59E0B"></div></div><span class="cat-leg-pct">22%</span></div>
+              <div class="cat-leg-row"><div class="cat-leg-dot" style="background:#8B5CF6"></div><span class="cat-leg-name">Home & kitchen</span><div class="cat-bar-track"><div class="cat-bar-fill" style="width:50%;background:#8B5CF6"></div></div><span class="cat-leg-pct">14%</span></div>
+              <div class="cat-leg-row"><div class="cat-leg-dot" style="background:#EC4899"></div><span class="cat-leg-name">Apparel & acc</span><div class="cat-bar-track"><div class="cat-bar-fill" style="width:39%;background:#EC4899"></div></div><span class="cat-leg-pct">11%</span></div>
+            </div>
+          </div>
+
+          <div class="chart-card">
+            <div class="chart-card-title">Store health scores</div>
+            <div class="store-list">
+              <div class="store-item"><span class="store-item-name">S01 Downtown Flagship</span><div class="store-bar-track"><div class="store-bar-fill" style="width:94%;background:#10B981"></div></div><span class="store-item-score" style="color:#6EE7B7">94</span></div>
+              <div class="store-item"><span class="store-item-name">S04 Eastpark Retail</span><div class="store-bar-track"><div class="store-bar-fill" style="width:75%;background:#10B981"></div></div><span class="store-item-score" style="color:#6EE7B7">75</span></div>
+              <div class="store-item"><span class="store-item-name">S07 Midtown Central</span><div class="store-bar-track"><div class="store-bar-fill" style="width:70%;background:#10B981"></div></div><span class="store-item-score" style="color:#6EE7B7">70</span></div>
+              <div class="store-item"><span class="store-item-name">S02 Westside Market</span><div class="store-bar-track"><div class="store-bar-fill" style="width:65%;background:#F59E0B"></div></div><span class="store-item-score" style="color:#FCD34D">65</span></div>
+              <div class="store-item"><span class="store-item-name">S03 Northgate Store</span><div class="store-bar-track"><div class="store-bar-fill" style="width:61%;background:#F59E0B"></div></div><span class="store-item-score" style="color:#FCD34D">61</span></div>
+              <div class="store-item"><span class="store-item-name">S05 Southside Boutique</span><div class="store-bar-track"><div class="store-bar-fill" style="width:56%;background:#F59E0B"></div></div><span class="store-item-score" style="color:#FCD34D">56</span></div>
+              <div class="store-item"><span class="store-item-name">S08 Riverside Outlet</span><div class="store-bar-track"><div class="store-bar-fill" style="width:50%;background:#EF4444"></div></div><span class="store-item-score" style="color:#FCA5A5">50</span></div>
+              <div class="store-item"><span class="store-item-name" style="color:#FCA5A5">S06 Lakeview Express</span><div class="store-bar-track"><div class="store-bar-fill" style="width:42%;background:#EF4444"></div></div><span class="store-item-score" style="color:#FCA5A5">42</span></div>
+            </div>
+          </div>
+
+          <div class="chart-card">
+            <div class="chart-card-title">Inventory — days on hand</div>
+            <div class="inv-bars">
+              <div class="inv-row"><span class="inv-name" style="color:#FCA5A5">Collagen Peptides</span><div class="inv-track"><div class="inv-fill" style="width:100%;background:#EF4444"><span class="inv-fill-label">160 days</span></div></div></div>
+              <div class="inv-row"><span class="inv-name" style="color:#FCA5A5">Nut Butter</span><div class="inv-track"><div class="inv-fill" style="width:43%;background:#EF4444"><span class="inv-fill-label">69d</span></div></div></div>
+              <div class="inv-row"><span class="inv-name" style="color:#FCD34D">Herbal Tea</span><div class="inv-track"><div class="inv-fill" style="width:31%;background:#F59E0B"><span class="inv-fill-label">49d</span></div></div></div>
+              <div class="inv-row"><span class="inv-name">Other products</span><div class="inv-track"><div class="inv-fill" style="width:11%;background:#10B981"><span class="inv-fill-label">18d</span></div></div></div>
+            </div>
+            <div style="margin-top:.75rem;font-family:var(--mono);font-size:9px;color:var(--muted)">Target DOI: &lt; 30 days</div>
+          </div>
+        </div>
+
+        <div style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:8px">Decision cards — action required</div>
+        <div class="decision-cards">
+          <div class="dc dc-red">
+            <div class="dc-head"><span class="dc-title">⚡ Overstaffing risk — S02 Westside Market</span><span class="sev sev-high">High</span></div>
+            <div class="dc-body">Labor at 41.4% of revenue vs. 23.1% chain avg. Excess payroll est. ~$126K annually. Reduce scheduled hours during low-demand windows.</div>
+          </div>
+          <div class="dc dc-red">
+            <div class="dc-head"><span class="dc-title">⚡ Understaffing / wait risk — S03 and S06</span><span class="sev sev-high">High</span></div>
+            <div class="dc-body">Avg wait 14.2 min (S03) and 14.4 min (S06). 32% fewer hours than peer stores. Est. $120K lost revenue from service degradation.</div>
+          </div>
+          <div class="dc dc-amber">
+            <div class="dc-head"><span class="dc-title">▲ Cash tied up — 3 aging SKUs</span><span class="sev sev-med">Medium</span></div>
+            <div class="dc-body">P013 Collagen Peptides at 160 days DOI. Combined idle inventory value ~$48K. Immediate markdown recommended on P013.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="services">
+  <div class="container">
+    <div class="section-eyebrow">Services</div>
+    <h2 class="section-title">Pick the scope that fits where you are</h2>
+    <p class="section-sub">All engagements start with a free 30-minute discovery call. No retainers required to start.</p>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-tag">Starter</div>
+        <div class="service-name">Ops audit</div>
+        <div class="service-price">$750 <span>flat</span></div>
+        <div class="service-divider"></div>
+        <ul class="service-items">
+          <li>1 process area (labor, inventory, or sales)</li>
+          <li>1–2 week turnaround</li>
+          <li>Audit report + ranked recommendations</li>
+          <li>30-min debrief call</li>
+        </ul>
+      </div>
+      <div class="service-card featured">
+        <div class="service-tag">Most popular</div>
+        <div class="service-name">Dashboard build</div>
+        <div class="service-price">$2,000 <span>flat</span></div>
+        <div class="service-divider"></div>
+        <ul class="service-items">
+          <li>Full executive summary + 2 detail pages</li>
+          <li>Connected to your existing data exports</li>
+          <li>Decision cards configured to your KPI targets</li>
+          <li>Training session + documentation</li>
+          <li>30-day support window</li>
+        </ul>
+      </div>
+      <div class="service-card">
+        <div class="service-tag">Ongoing</div>
+        <div class="service-name">Monthly retainer</div>
+        <div class="service-price">$1,800 <span>/ mo</span></div>
+        <div class="service-divider"></div>
+        <ul class="service-items">
+          <li>Weekly reporting refresh</li>
+          <li>Monthly ops review call</li>
+          <li>Ad-hoc analysis requests</li>
+          <li>Dashboard updates as business evolves</li>
+          <li>Priority response within 24 hrs</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="casestudy">
+  <div class="container">
+    <div class="section-eyebrow">Case study</div>
+    <div class="cs-grid">
+      <div>
+        <h2 class="cs-headline">Specialty retail chain, 8 locations, $10M revenue</h2>
+        <p class="cs-body">Built a full operations analytics platform from raw POS and payroll exports. The platform surfaced three high-priority issues in the first week — none of which were visible in existing reporting.</p>
+        <div class="cs-findings">
+          <div class="cs-finding">
+            <div class="cs-finding-val">$126K</div>
+            <div class="cs-finding-desc">Excess annual payroll identified at one location running 41.4% labor cost</div>
+          </div>
+          <div class="cs-finding">
+            <div class="cs-finding-val">$120K</div>
+            <div class="cs-finding-desc">Estimated lost revenue from understaffing at two locations with 14+ min wait times</div>
+          </div>
+          <div class="cs-finding">
+            <div class="cs-finding-val">$48K</div>
+            <div class="cs-finding-desc">Inventory cash tied up in 3 slow-moving SKUs, flagged for markdown</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="cs-label">Engagement details</div>
+        <div class="cs-meta">
+          <div class="cs-meta-row"><span class="cs-meta-key">Industry</span><span class="cs-meta-val">Specialty retail</span></div>
+          <div class="cs-meta-row"><span class="cs-meta-key">Locations</span><span class="cs-meta-val">8 stores, 4 regions</span></div>
+          <div class="cs-meta-row"><span class="cs-meta-key">Annual revenue</span><span class="cs-meta-val">$10.25M</span></div>
+          <div class="cs-meta-row"><span class="cs-meta-key">Data sources</span><span class="cs-meta-val">POS exports, payroll system, inventory snapshots</span></div>
+          <div class="cs-meta-row"><span class="cs-meta-key">Deliverable</span><span class="cs-meta-val">Executive dashboard + labor, inventory, and store performance pages</span></div>
+          <div class="cs-meta-row"><span class="cs-meta-key">Time to first insight</span><span class="cs-meta-val">7 days from data receipt</span></div>
+          <div class="cs-meta-row"><span class="cs-meta-key">Total findings</span><span class="cs-meta-val">3 high-priority, 4 medium-priority</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="contact">
+  <div class="container">
+    <div class="contact-inner">
+      <div class="section-eyebrow">Contact</div>
+      <h2 class="section-title">Let's talk about your ops data</h2>
+      <p class="section-sub">Send a note describing what you're working with — number of locations, your data sources, and the biggest ops headache you have right now. I'll respond within 24 hours.</p>
+      <div class="contact-form">
+        <div class="form-field">
+          <label class="form-label">Your name</label>
+          <input class="form-input" type="text" placeholder="Jane Smith">
+        </div>
+        <div class="form-field">
+          <label class="form-label">Email address</label>
+          <input class="form-input" type="email" placeholder="jane@yourbrand.com">
+        </div>
+        <div class="form-field">
+          <label class="form-label">Company / business</label>
+          <input class="form-input" type="text" placeholder="Acme Retail Co.">
+        </div>
+        <div class="form-field">
+          <label class="form-label">What are you working on?</label>
+          <textarea class="form-input" placeholder="e.g. We have 6 retail locations and can't figure out why two of them are underperforming. We have POS data and payroll exports but no good way to see it all together."></textarea>
+        </div>
+        <div>
+          <button class="form-submit" onclick="alert('To make this form live: connect it to Formspree (free) or Netlify Forms in under 5 minutes.')">Send message →</button>
+          <div class="form-note">No sales pressure. If there's not a fit, I'll say so.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-copy">© 2024 Atlas Operations · Freelance ops analytics</div>
+    <div class="footer-links">
+      <a href="#demo">Live demo</a>
+      <a href="#services">Services</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+const months = [729,648,782,793,839,835,831,795,827,926,1019,1226];
+const maxVal = Math.max(...months);
+const container = document.getElementById('monthlyBars');
+months.forEach((v, i) => {
+  const col = document.createElement('div');
+  col.className = 'bar-col';
+  const h = Math.round((v / maxVal) * 72);
+  const isPeak = v >= 1000;
+  col.innerHTML = `<div class="bar-fill${isPeak?' peak':''}" style="height:${h}px"></div>`;
+  container.appendChild(col);
+});
+</script>
+</body>
+</html>
