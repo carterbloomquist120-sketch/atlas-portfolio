@@ -25,7 +25,7 @@ nav{position:sticky;top:0;z-index:100;background:rgba(11,17,32,0.92);backdrop-fi
 section{padding:5rem 2rem}
 .container{max-width:1100px;margin:0 auto}
 
-#hero{padding:5rem 2rem 3rem}
+#hero{padding:3rem 2rem 2rem}
 .hero-eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-light);margin-bottom:1.25rem}
 .hero-headline{font-size:clamp(32px,5vw,58px);font-weight:300;line-height:1.12;letter-spacing:-0.02em;color:var(--off-white);margin-bottom:1.25rem;max-width:760px}
 .hero-headline span{color:var(--accent-light);font-weight:500}
@@ -192,8 +192,8 @@ footer{padding:2rem;border-top:0.5px solid var(--border)}
     </div>
     <div class="nav-links">
       <a href="#demo">Live demo</a>
+      <a href="#why">Why Atlas</a>
       <a href="#services">Services</a>
-      <a href="#casestudy">Case study</a>
       <a href="#contact">Contact</a>
     </div>
     <a href="#contact" class="nav-cta">Get in touch</a>
@@ -202,9 +202,6 @@ footer{padding:2rem;border-top:0.5px solid var(--border)}
 
 <section id="hero">
   <div class="container">
-    <div class="hero-eyebrow">Freelance operations analytics</div>
-    <h1 class="hero-headline">Turn messy ops data into<br><span>decisions that move the needle</span></h1>
-    <p class="hero-sub">I build custom analytics platforms for retail, restaurant, and cannabis operators — surfacing labor waste, inventory problems, and underperforming locations before they cost you. Scalable from a single location to 70+ sites.</p>
     <div class="hero-stats">
       <div>
         <div class="hero-stat-val">$126K</div>
@@ -228,88 +225,72 @@ footer{padding:2rem;border-top:0.5px solid var(--border)}
 
 <section id="demo" style="padding-top:0">
   <div class="container">
-    <div class="demo-label">Live demo — switch between industry versions</div>
-    <div class="version-switcher">
-      <button class="vs-btn active" onclick="switchVersion('retail')">General retail</button>
-      <button class="vs-btn" onclick="switchVersion('restaurant')">Restaurant</button>
-      <button class="vs-btn" onclick="switchVersion('cannabis')">Cannabis retail</button>
+    <div class="demo-label">Live demo — pick your industry and dashboard type</div>
+    <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:1rem">
+      <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+        <span style="font-family:var(--mono);font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;width:60px">Industry</span>
+        <div class="version-switcher" id="industrySwitcher" style="margin-bottom:0">
+          <button class="vs-btn active" data-ind="retail">General retail</button>
+          <button class="vs-btn" data-ind="restaurant">Restaurant</button>
+          <button class="vs-btn" data-ind="cannabis">Cannabis retail</button>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+        <span style="font-family:var(--mono);font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;width:60px">Dashboard</span>
+        <div class="version-switcher" id="dashSwitcher" style="margin-bottom:0">
+          <button class="vs-btn active" data-dash="overview">Executive overview</button>
+          <button class="vs-btn" data-dash="inventory">Inventory</button>
+          <button class="vs-btn" data-dash="staffing">Staffing</button>
+          <button class="vs-btn" data-dash="automation">Automation</button>
+        </div>
+      </div>
     </div>
     <div class="demo-frame">
       <div class="demo-chrome">
         <div class="chrome-dot" style="background:#EF4444"></div>
         <div class="chrome-dot" style="background:#F59E0B"></div>
         <div class="chrome-dot" style="background:#10B981"></div>
-        <div class="chrome-url" id="chromeUrl">atlas-ops.io / retail / executive-summary</div>
+        <div class="chrome-url" id="demoUrl">atlas-ops.io / retail / executive-summary</div>
       </div>
-      <div class="demo-content">
-
-        <div class="demo-topbar">
-          <div>
-            <div class="demo-topbar-title">Executive summary</div>
-            <div class="demo-topbar-sub" id="demoSub">General retail · 24 locations · FY 2024</div>
-          </div>
-          <div style="display:flex;gap:6px">
-            <span class="badge-green">+4.5% WoW</span>
-            <span class="badge-amber">3 alerts</span>
-          </div>
-        </div>
-
-        <div class="kpi-strip">
-          <div class="kpi-tile">
-            <div class="kpi-tile-label" id="kpi1label">Annual revenue</div>
-            <div class="kpi-tile-val">$10.25M</div>
-            <div class="kpi-tile-delta" style="color:#6EE7B7">↑ +20.4% MoM</div>
-          </div>
-          <div class="kpi-tile">
-            <div class="kpi-tile-label" id="kpi2label">Gross margin</div>
-            <div class="kpi-tile-val" id="kpi2val">59.7%</div>
-            <div class="kpi-tile-delta" style="color:#6EE7B7">✓ on target</div>
-          </div>
-          <div class="kpi-tile">
-            <div class="kpi-tile-label" id="kpi3label">Avg ticket</div>
-            <div class="kpi-tile-val" id="kpi3val">$16.12</div>
-            <div class="kpi-tile-delta" style="color:var(--muted)" id="kpi3sub">635K transactions</div>
-          </div>
-          <div class="kpi-tile">
-            <div class="kpi-tile-label" id="kpi4label">Labor %</div>
-            <div class="kpi-tile-val red" id="kpi4val">23.1%</div>
-            <div class="kpi-tile-delta" style="color:#FCA5A5" id="kpi4sub">⚠ loc 7 at 41%</div>
-          </div>
-          <div class="kpi-tile">
-            <div class="kpi-tile-label">Active alerts</div>
-            <div class="kpi-tile-val amber">3</div>
-            <div class="kpi-tile-delta" style="color:#FCD34D">needs attention</div>
-          </div>
-        </div>
-
-        <div class="charts-grid">
-          <div class="chart-card">
-            <div class="chart-card-title">Monthly revenue</div>
-            <div class="bar-chart" id="monthlyBars"></div>
-            <div style="display:flex;justify-content:space-between;margin-top:4px">
-              <span style="font-family:var(--mono);font-size:8px;color:var(--muted)">Jan</span>
-              <span style="font-family:var(--mono);font-size:8px;color:var(--muted)">Dec</span>
-            </div>
-          </div>
-          <div class="chart-card">
-            <div class="chart-card-title" id="catChartTitle">Revenue by category</div>
-            <div class="cat-legend" id="catLegend"></div>
-          </div>
-          <div class="chart-card">
-            <div class="chart-card-title" id="locationChartTitle">Location health scores</div>
-            <div class="store-list" id="storeList"></div>
-          </div>
-          <div class="chart-card">
-            <div class="chart-card-title" id="invChartTitle">Inventory — days on hand</div>
-            <div class="inv-bars" id="invBars"></div>
-            <div class="inv-target" id="invTarget">Target DOI: &lt; 30 days</div>
-          </div>
-        </div>
-
-        <div class="dc-section-label">Decision cards — action required</div>
-        <div class="decision-cards" id="decisionCards"></div>
-
+      <div class="demo-content" id="demoContent">
+        <div class="bar-chart" id="monthlyBars" style="display:none"></div>
       </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="why" style="padding:5rem 2rem;background:var(--navy-2)">
+  <div class="container">
+    <div class="section-eyebrow">Why Atlas</div>
+    <h2 class="section-title">Not a dashboard vendor. A partner.</h2>
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:2.5rem">
+
+      <div style="background:var(--navy-3);border:0.5px solid var(--border);border-left:2px solid var(--accent);border-radius:0 12px 12px 0;padding:1.5rem">
+        <div style="font-family:var(--mono);font-size:11px;color:var(--accent-light);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.6rem">What sets us apart</div>
+        <div style="font-size:17px;font-weight:400;margin-bottom:.6rem">Real action items, not reformatted numbers</div>
+        <div style="font-size:13px;color:var(--muted);line-height:1.7">Most tools hand you a dashboard and walk away. I personally work to make your business more profitable — every recommendation is specific, ranked by impact, and written in plain language your ops team can act on tomorrow.</div>
+      </div>
+
+      <div style="background:var(--navy-3);border:0.5px solid var(--border);border-left:2px solid #10B981;border-radius:0 12px 12px 0;padding:1.5rem">
+        <div style="font-family:var(--mono);font-size:11px;color:#6EE7B7;text-transform:uppercase;letter-spacing:.08em;margin-bottom:.6rem">Weekly deliverable</div>
+        <div style="font-size:17px;font-weight:400;margin-bottom:.6rem">Weekly decision briefs, every Monday</div>
+        <div style="font-size:13px;color:var(--muted);line-height:1.7">Every week you receive a short brief — 3 to 5 specific things your business should do based on last week's data. Not a data dump. Not a PDF with 40 charts. The three things that actually matter, and why.</div>
+      </div>
+
+      <div style="background:var(--navy-3);border:0.5px solid var(--border);border-left:2px solid #F59E0B;border-radius:0 12px 12px 0;padding:1.5rem">
+        <div style="font-family:var(--mono);font-size:11px;color:#FCD34D;text-transform:uppercase;letter-spacing:.08em;margin-bottom:.6rem">Monthly cadence</div>
+        <div style="font-size:17px;font-weight:400;margin-bottom:.6rem">Platform updates every month</div>
+        <div style="font-size:13px;color:var(--muted);line-height:1.7">Your business changes — your platform should too. Every month I refresh the dashboards, recalibrate KPI targets based on actual performance, and add or remove metrics that aren't pulling their weight.</div>
+      </div>
+
+      <div style="background:var(--navy-3);border:0.5px solid var(--border);border-left:2px solid #8B5CF6;border-radius:0 12px 12px 0;padding:1.5rem">
+        <div style="font-family:var(--mono);font-size:11px;color:#C4B5FD;text-transform:uppercase;letter-spacing:.08em;margin-bottom:.6rem">Three-leg platform</div>
+        <div style="font-size:17px;font-weight:400;margin-bottom:.6rem">Inventory + staffing + automation in one system</div>
+        <div style="font-size:13px;color:var(--muted);line-height:1.7">Most analysts build you one thing. The Atlas platform covers all three legs of ops — so you're not stitching together three different tools or three different vendors to get a complete picture of your business.</div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -320,18 +301,20 @@ footer{padding:2rem;border-top:0.5px solid var(--border)}
   <div class="container">
     <div class="section-eyebrow">Services</div>
     <h2 class="section-title">Pick the scope that fits where you are</h2>
-    <p class="section-sub">All engagements start with a free 30-minute discovery call. No retainers required to start.</p>
+    <p class="section-sub">Every engagement is custom. You might only need a labor audit. You might only need inventory visibility — not reordering logic. You don't have to buy the whole platform to get value. Start with one thing, add more if it makes sense.</p>
+    <p style="font-size:13px;color:var(--muted);margin-top:.75rem;margin-bottom:0;font-style:italic">Methodology and scoring framework shared with clients under engagement. All engagements start with a free 30-minute discovery call.</p>
     <div class="services-grid">
       <div class="service-card">
-        <div class="service-tag">Starter</div>
+        <div class="service-tag">Start here</div>
         <div class="service-name">Ops audit</div>
         <div class="service-price">$750 <span>flat</span></div>
         <div class="service-divider"></div>
         <ul class="service-items">
-          <li>1 process area (labor, inventory, or sales)</li>
+          <li>You pick the focus — labor, inventory, sales, or store performance</li>
           <li>1–2 week turnaround</li>
-          <li>Audit report + ranked recommendations</li>
+          <li>Audit report + ranked action items</li>
           <li>30-min debrief call</li>
+          <li style="color:var(--accent-light)">No commitment beyond this engagement</li>
         </ul>
       </div>
       <div class="service-card featured">
@@ -340,11 +323,12 @@ footer{padding:2rem;border-top:0.5px solid var(--border)}
         <div class="service-price">$2,000 <span>flat</span></div>
         <div class="service-divider"></div>
         <ul class="service-items">
-          <li>Executive summary + 2 detail pages</li>
+          <li>You choose which dashboards — inventory, staffing, sales, or any combination</li>
           <li>Connected to your existing data exports</li>
-          <li>Decision cards configured to your KPI targets</li>
+          <li>Decision cards configured to your specific KPI targets</li>
           <li>Scales to any number of locations</li>
           <li>Training session + 30-day support</li>
+          <li style="color:var(--accent-light)">Build one leg now, add others later</li>
         </ul>
       </div>
       <div class="service-card">
@@ -353,11 +337,12 @@ footer{padding:2rem;border-top:0.5px solid var(--border)}
         <div class="service-price">$1,800 <span>/ mo</span></div>
         <div class="service-divider"></div>
         <ul class="service-items">
-          <li>Weekly reporting refresh</li>
+          <li>Weekly decision brief every Monday — 3 to 5 specific action items</li>
+          <li>Monthly platform refresh + KPI recalibration</li>
           <li>Monthly ops review call</li>
-          <li>Ad-hoc analysis requests</li>
-          <li>Dashboard updates as business evolves</li>
+          <li>Ad-hoc analysis on whatever comes up</li>
           <li>Priority response within 24 hrs</li>
+          <li style="color:var(--accent-light)">Month-to-month, cancel anytime</li>
         </ul>
       </div>
     </div>
@@ -451,14 +436,13 @@ footer{padding:2rem;border-top:0.5px solid var(--border)}
 </footer>
 
 <script>
-const versions = {
-  retail: {
-    url: 'atlas-ops.io / retail / executive-summary',
-    sub: 'General retail · 24 locations · FY 2024',
-    kpi2label:'Gross margin', kpi2val:'59.7%',
-    kpi3label:'Avg ticket', kpi3val:'$16.12', kpi3sub:'635K transactions',
-    kpi4label:'Labor %', kpi4val:'23.1%', kpi4sub:'⚠ loc 7 at 41%',
-    catTitle:'Revenue by category',
+const industryData = {
+  retail:{
+    label:'General retail', sub:'24 locations · FY 2024',
+    slug:'retail',
+    rev:'$10.25M', margin:'59.7%', marginLabel:'Gross margin',
+    ticket:'$16.12', ticketLabel:'Avg ticket', ticketSub:'635K transactions',
+    labor:'23.1%', laborLabel:'Labor %', laborAlert:'⚠ loc 7 at 41%',
     cats:[
       {name:'Apparel',pct:32,w:100,color:'#3B82F6'},
       {name:'Footwear',pct:24,w:75,color:'#10B981'},
@@ -466,176 +450,206 @@ const versions = {
       {name:'Home goods',pct:14,w:44,color:'#8B5CF6'},
       {name:'Clearance',pct:10,w:31,color:'#6B7280'},
     ],
-    locationTitle:'Location health scores',
+    catLabel:'Revenue by category',
     locations:[
-      {name:'Downtown Flagship',score:94,pct:94,color:'#10B981',textColor:'#6EE7B7'},
-      {name:'Eastside Mall',score:81,pct:81,color:'#10B981',textColor:'#6EE7B7'},
-      {name:'Northgate Center',score:74,pct:74,color:'#10B981',textColor:'#6EE7B7'},
-      {name:'Westfield Outlet',score:65,pct:65,color:'#F59E0B',textColor:'#FCD34D'},
-      {name:'Riverside Square',score:58,pct:58,color:'#F59E0B',textColor:'#FCD34D'},
-      {name:'Southpark Store',score:51,pct:51,color:'#EF4444',textColor:'#FCA5A5'},
-      {name:'Airport Express',score:42,pct:42,color:'#EF4444',textColor:'#FCA5A5'},
+      {name:'Downtown Flagship',score:94,color:'#10B981',tc:'#6EE7B7'},
+      {name:'Eastside Mall',score:81,color:'#10B981',tc:'#6EE7B7'},
+      {name:'Northgate Center',score:74,color:'#10B981',tc:'#6EE7B7'},
+      {name:'Westfield Outlet',score:65,color:'#F59E0B',tc:'#FCD34D'},
+      {name:'Riverside Square',score:58,color:'#F59E0B',tc:'#FCD34D'},
+      {name:'Southpark Store',score:51,color:'#EF4444',tc:'#FCA5A5'},
+      {name:'Airport Express',score:42,color:'#EF4444',tc:'#FCA5A5'},
     ],
-    invTitle:'Inventory — days on hand',
-    invTarget:'Target DOI: < 30 days',
-    inv:[
-      {name:'Winter outerwear',days:112,pct:100,color:'#EF4444'},
-      {name:'Seasonal decor',days:74,pct:66,color:'#EF4444'},
-      {name:'Clearance apparel',days:45,pct:40,color:'#F59E0B'},
-      {name:'Core SKUs (avg)',days:18,pct:16,color:'#10B981'},
-    ],
-    cards:[
+    locLabel:'Location health scores',
+    inv:[{name:'Winter outerwear',days:112,pct:100,color:'#EF4444'},{name:'Seasonal decor',days:74,pct:66,color:'#EF4444'},{name:'Clearance apparel',days:45,pct:40,color:'#F59E0B'},{name:'Core SKUs (avg)',days:18,pct:16,color:'#10B981'}],
+    invLabel:'Inventory — days on hand', invTarget:'Target DOI: < 30 days',
+    overviewCards:[
       {type:'red',title:'⚡ Overstaffing risk — location 7',sev:'High',body:'Labor at 41% of revenue vs. 23% chain avg. Excess payroll est. ~$126K annually. Reduce scheduled hours during low-demand windows.'},
-      {type:'red',title:'⚡ Understaffing — locations 5 and 6',sev:'High',body:'Avg customer wait 14+ min at both sites. 32% fewer hours than comparable locations. Est. $120K in lost annual revenue from service degradation.'},
-      {type:'amber',title:'▲ Cash tied up — seasonal overstock',sev:'Medium',body:'Winter outerwear at 112 days DOI across 3 locations. Combined idle inventory value ~$48K. Markdown or inter-store transfer recommended.'},
-    ]
+      {type:'red',title:'⚡ Understaffing — locations 5 and 6',sev:'High',body:'Avg customer wait 14+ min at both sites. 32% fewer hours than comparable locations. Est. $120K in lost annual revenue.'},
+      {type:'amber',title:'▲ Cash tied up — seasonal overstock',sev:'Medium',body:'Winter outerwear at 112 days DOI across 3 locations. Combined idle inventory ~$48K. Markdown or inter-store transfer recommended.'},
+    ],
+    invDash:{
+      kpis:[{label:'Avg days on hand',val:'18.4d',delta:'✓ on target',dc:'#6EE7B7'},{label:'SKUs at risk',val:'3',vc:'red',delta:'⚠ DOI > 45d',dc:'#FCA5A5'},{label:'Sell-through rate',val:'71.2%',delta:'↑ +4% MoM',dc:'#6EE7B7'},{label:'Idle inventory $',val:'$48K',vc:'amber',delta:'⚠ markdown needed',dc:'#FCD34D'},{label:'Fill rate',val:'94.1%',delta:'✓ healthy',dc:'#6EE7B7'}],
+      bars:[{name:'Winter outerwear',label:'112 days — markdown now',pct:100,color:'#EF4444',tc:'#FCA5A5'},{name:'Seasonal decor',label:'74 days — transfer',pct:66,color:'#EF4444',tc:'#FCA5A5'},{name:'Clearance apparel',label:'45 days — monitor',pct:40,color:'#F59E0B',tc:'#FCD34D'},{name:'Core apparel',label:'22 days',pct:20,color:'#10B981',tc:'var(--muted)'},{name:'Footwear',label:'17 days',pct:15,color:'#10B981',tc:'var(--muted)'},{name:'Accessories',label:'13 days',pct:12,color:'#10B981',tc:'var(--muted)'}],
+      barTitle:'Days on hand by SKU',barNote:'Target: < 30 days · Red = markdown · Amber = monitor · Green = healthy',
+      cards:[{type:'red',title:'⚡ Markdown required — winter outerwear',sev:'High',body:'112 days DOI. Est. $28K idle. Recommend 25% markdown before season-end window closes.'},{type:'amber',title:'▲ Inter-store transfer — seasonal decor',sev:'Medium',body:'74 days DOI downtown vs. 18 days eastside. Transfer 40 units, no new POs until DOI < 30.'}]
+    },
+    staffDash:{
+      kpis:[{label:'Chain labor %',val:'23.1%',delta:'✓ on target',dc:'#6EE7B7'},{label:'Problem locations',val:'2',vc:'red',delta:'⚠ action needed',dc:'#FCA5A5'},{label:'Avg wait time',val:'5.2 min',delta:'✓ healthy',dc:'#6EE7B7'},{label:'Excess payroll',val:'$126K',vc:'amber',delta:'⚠ annualized',dc:'#FCD34D'},{label:'Callout rate',val:'4.2%',delta:'↑ monitor',dc:'#FCD34D'}],
+      bars:[{name:'Location 7',label:'41.4% — overstaffed',pct:100,color:'#EF4444',tc:'#FCA5A5'},{name:'Location 3',label:'14.2 min wait — understaffed',pct:76,color:'#EF4444',tc:'#FCA5A5'},{name:'Location 6',label:'14.4 min wait — understaffed',pct:75,color:'#F59E0B',tc:'#FCD34D'},{name:'Location 5',label:'24.7% — elevated',pct:60,color:'#F59E0B',tc:'#FCD34D'},{name:'Chain avg',label:'23.1%',pct:56,color:'#3B82F6',tc:'var(--muted)'},{name:'Location 1',label:'17.9% — efficient',pct:43,color:'#10B981',tc:'var(--muted)'}],
+      barTitle:'Labor % by location',barNote:'Red > 35% · Amber 25–35% · Green < 25%',
+      cards:[{type:'red',title:'⚡ Overstaffing — location 7 at 41.4%',sev:'High',body:'~$126K annual payroll waste. Reduce floor coverage 3 hrs/day during 10am–2pm. Savings est. $8,400/month.'},{type:'red',title:'⚡ Understaffing — locations 3 and 6',sev:'High',body:'14+ min avg wait. 32% fewer hours than peer stores. Add 2 shifts/week minimum.'}]
+    },
+    autoDash:{isDesc:true}
   },
-  restaurant: {
-    url: 'atlas-ops.io / restaurant / executive-summary',
-    sub: 'Restaurant group · 18 locations · FY 2024',
-    kpi2label:'Food cost %', kpi2val:'28.4%',
-    kpi3label:'Avg check', kpi3val:'$22.50', kpi3sub:'284K covers',
-    kpi4label:'Labor %', kpi4val:'31.2%', kpi4sub:'⚠ loc 3 at 44%',
-    catTitle:'Revenue by daypart',
-    cats:[
-      {name:'Dinner',pct:42,w:100,color:'#3B82F6'},
-      {name:'Lunch',pct:31,w:74,color:'#10B981'},
-      {name:'Brunch',pct:15,w:36,color:'#F59E0B'},
-      {name:'Bar / drinks',pct:8,w:19,color:'#8B5CF6'},
-      {name:'Catering',pct:4,w:10,color:'#6B7280'},
-    ],
-    locationTitle:'Location health scores',
-    locations:[
-      {name:'Downtown Flagship',score:91,pct:91,color:'#10B981',textColor:'#6EE7B7'},
-      {name:'Midtown Bistro',score:83,pct:83,color:'#10B981',textColor:'#6EE7B7'},
-      {name:'Lakeview Grill',score:76,pct:76,color:'#10B981',textColor:'#6EE7B7'},
-      {name:'Airport Terminal',score:62,pct:62,color:'#F59E0B',textColor:'#FCD34D'},
-      {name:'Westside Kitchen',score:55,pct:55,color:'#F59E0B',textColor:'#FCD34D'},
-      {name:'Northpark Cafe',score:48,pct:48,color:'#EF4444',textColor:'#FCA5A5'},
-      {name:'Southside Bar',score:39,pct:39,color:'#EF4444',textColor:'#FCA5A5'},
-    ],
-    invTitle:'Food cost — days of supply',
-    invTarget:'Target: < 5 days perishables, < 14 days dry',
-    inv:[
-      {name:'Proteins (perishable)',days:9,pct:100,color:'#EF4444'},
-      {name:'Dairy & produce',days:7,pct:78,color:'#EF4444'},
-      {name:'Dry goods',days:18,pct:50,color:'#F59E0B'},
-      {name:'Beverages (avg)',days:12,pct:33,color:'#10B981'},
-    ],
-    cards:[
-      {type:'red',title:'⚡ Labor spike — location 3 at 44%',sev:'High',body:'Kitchen labor running 44% of revenue vs. 31% group avg. Excess payroll est. ~$94K annually. Scheduling audit recommended for dinner service.'},
-      {type:'red',title:'⚡ Perishable overstock — proteins',sev:'High',body:'Protein inventory averaging 9 days of supply across 4 locations vs. 3-day target. Spoilage risk rising. Adjust par levels and ordering cadence immediately.'},
-      {type:'amber',title:'▲ Lunch covers declining — 3 sites',sev:'Medium',body:'Lunch revenue down 18% WoW at Northpark, Westside, and Airport locations. Staffing and menu timing may need adjustment to capture midday traffic.'},
-    ]
+  restaurant:{
+    label:'Restaurant', sub:'18 locations · FY 2024',
+    slug:'restaurant',
+    rev:'$8.4M', margin:'28.4%', marginLabel:'Food cost %',
+    ticket:'$22.50', ticketLabel:'Avg check', ticketSub:'284K covers',
+    labor:'31.2%', laborLabel:'Labor %', laborAlert:'⚠ loc 3 at 44%',
+    cats:[{name:'Dinner',pct:42,w:100,color:'#3B82F6'},{name:'Lunch',pct:31,w:74,color:'#10B981'},{name:'Brunch',pct:15,w:36,color:'#F59E0B'},{name:'Bar / drinks',pct:8,w:19,color:'#8B5CF6'},{name:'Catering',pct:4,w:10,color:'#6B7280'}],
+    catLabel:'Revenue by daypart',
+    locations:[{name:'Downtown Flagship',score:91,color:'#10B981',tc:'#6EE7B7'},{name:'Midtown Bistro',score:83,color:'#10B981',tc:'#6EE7B7'},{name:'Lakeview Grill',score:76,color:'#10B981',tc:'#6EE7B7'},{name:'Airport Terminal',score:62,color:'#F59E0B',tc:'#FCD34D'},{name:'Westside Kitchen',score:55,color:'#F59E0B',tc:'#FCD34D'},{name:'Northpark Cafe',score:48,color:'#EF4444',tc:'#FCA5A5'},{name:'Southside Bar',score:39,color:'#EF4444',tc:'#FCA5A5'}],
+    locLabel:'Location health scores',
+    inv:[{name:'Proteins (perishable)',days:9,pct:100,color:'#EF4444'},{name:'Dairy & produce',days:7,pct:78,color:'#EF4444'},{name:'Dry goods',days:18,pct:50,color:'#F59E0B'},{name:'Beverages',days:12,pct:33,color:'#10B981'}],
+    invLabel:'Food cost — days of supply', invTarget:'Target: < 5 days perishables, < 14 days dry',
+    overviewCards:[{type:'red',title:'⚡ Labor spike — location 3 at 44%',sev:'High',body:'Kitchen labor 44% of revenue vs. 31% group avg. Excess payroll ~$94K/yr. Scheduling audit needed for dinner service.'},{type:'red',title:'⚡ Perishable overstock — proteins',sev:'High',body:'9-day protein supply vs. 3-day target at 4 locations. Spoilage risk rising. Adjust par levels now.'},{type:'amber',title:'▲ Lunch covers declining — 3 sites',sev:'Medium',body:'Lunch revenue down 18% WoW at 3 locations. Staffing and menu timing may need adjustment.'}],
+    invDash:{kpis:[{label:'Avg food cost %',val:'28.4%',delta:'✓ on target',dc:'#6EE7B7'},{label:'Spoilage risk',val:'High',vc:'red',delta:'⚠ 4 locations',dc:'#FCA5A5'},{label:'Protein days supply',val:'9 days',vc:'red',delta:'⚠ target: 3',dc:'#FCA5A5'},{label:'Dry goods',val:'18 days',vc:'amber',delta:'⚠ target: 14',dc:'#FCD34D'},{label:'Waste %',val:'4.2%',delta:'↑ monitor',dc:'#FCD34D'}],bars:[{name:'Proteins',label:'9 days — above target',pct:100,color:'#EF4444',tc:'#FCA5A5'},{name:'Dairy & produce',label:'7 days — above target',pct:78,color:'#EF4444',tc:'#FCA5A5'},{name:'Dry goods',label:'18 days — slightly elevated',pct:50,color:'#F59E0B',tc:'#FCD34D'},{name:'Beverages',label:'12 days — healthy',pct:33,color:'#10B981',tc:'var(--muted)'}],barTitle:'Food cost — days of supply by category',barNote:'Target: < 5d perishables · < 14d dry goods · Red = spoilage risk',cards:[{type:'red',title:'⚡ Protein overstock — 4 locations',sev:'High',body:'9-day supply vs. 3-day target. Reduce next PO by 40% and coordinate with vendor on shorter delivery windows.'},{type:'amber',title:'▲ Dry goods elevated',sev:'Medium',body:'18 days dry goods vs. 14-day target. Pause new orders for 5 days to burn through current stock.'}]},
+    staffDash:{kpis:[{label:'Group labor %',val:'31.2%',delta:'↑ above target',dc:'#FCD34D'},{label:'Problem locations',val:'2',vc:'red',delta:'⚠ action needed',dc:'#FCA5A5'},{label:'Covers per server',val:'38',delta:'✓ on target',dc:'#6EE7B7'},{label:'Excess payroll',val:'$94K',vc:'amber',delta:'⚠ annualized',dc:'#FCD34D'},{label:'Callout rate',val:'6.1%',delta:'⚠ elevated',dc:'#FCA5A5'}],bars:[{name:'Location 3',label:'44% — overstaffed kitchen',pct:100,color:'#EF4444',tc:'#FCA5A5'},{name:'Location 6',label:'38% — elevated',pct:86,color:'#F59E0B',tc:'#FCD34D'},{name:'Group avg',label:'31.2%',pct:71,color:'#3B82F6',tc:'var(--muted)'},{name:'Location 1',label:'26% — healthy',pct:59,color:'#10B981',tc:'var(--muted)'},{name:'Location 2',label:'24% — efficient',pct:55,color:'#10B981',tc:'var(--muted)'}],barTitle:'Labor % by location',barNote:'Red > 40% · Amber 33–40% · Green < 33%',cards:[{type:'red',title:'⚡ Kitchen overstaffing — location 3',sev:'High',body:'44% labor vs. 31% avg. Reduce prep hours Tuesday–Thursday. Est. savings $5,800/month.'},{type:'amber',title:'▲ Callout rate elevated chain-wide',sev:'Medium',body:'6.1% callout rate vs. 3% target. Review scheduling practices and on-call coverage plan.'}]},
+    autoDash:{isDesc:true}
   },
-  cannabis: {
-    url: 'atlas-ops.io / cannabis / executive-summary',
-    sub: 'Cannabis retail · 11 dispensaries · FY 2024',
-    kpi2label:'Gross margin', kpi2val:'52.3%',
-    kpi3label:'Avg basket', kpi3val:'$58.40', kpi3sub:'175K transactions',
-    kpi4label:'DSA labor %', kpi4val:'19.8%', kpi4sub:'⚠ loc 4 at 31%',
-    catTitle:'Revenue by category',
-    cats:[
-      {name:'Flower',pct:38,w:100,color:'#10B981'},
-      {name:'Vapes & carts',pct:27,w:71,color:'#3B82F6'},
-      {name:'Edibles',pct:18,w:47,color:'#F59E0B'},
-      {name:'Concentrates',pct:11,w:29,color:'#8B5CF6'},
-      {name:'Accessories',pct:6,w:16,color:'#6B7280'},
-    ],
-    locationTitle:'Dispensary health scores',
-    locations:[
-      {name:'Main St Flagship',score:92,pct:92,color:'#10B981',textColor:'#6EE7B7'},
-      {name:'Eastside Dispo',score:85,pct:85,color:'#10B981',textColor:'#6EE7B7'},
-      {name:'Airport Rd Store',score:77,pct:77,color:'#10B981',textColor:'#6EE7B7'},
-      {name:'Northgate Dispo',score:66,pct:66,color:'#F59E0B',textColor:'#FCD34D'},
-      {name:'Westpark Location',score:59,pct:59,color:'#F59E0B',textColor:'#FCD34D'},
-      {name:'College District',score:48,pct:48,color:'#EF4444',textColor:'#FCA5A5'},
-      {name:'Southside Express',score:41,pct:41,color:'#EF4444',textColor:'#FCA5A5'},
-    ],
-    invTitle:'Inventory — days on hand',
-    invTarget:'Target DOI: < 21 days (compliance risk above 60)',
-    inv:[
-      {name:'Indica flower (aged)',days:68,pct:100,color:'#EF4444'},
-      {name:'Seasonal edibles',days:44,pct:65,color:'#EF4444'},
-      {name:'Legacy vape SKUs',days:31,pct:46,color:'#F59E0B'},
-      {name:'Core SKUs (avg)',days:14,pct:21,color:'#10B981'},
-    ],
-    cards:[
-      {type:'red',title:'⚡ DSA overstaffing — location 4',sev:'High',body:'DSA labor at 31% of revenue vs. 19.8% avg. Low transactions-per-DSA-hour during midday. Reduce floor coverage 11am–2pm window across 3 locations.'},
-      {type:'red',title:'⚡ Aging flower — compliance risk',sev:'High',body:'Indica SKUs at 68 days DOI across 4 dispensaries. Vendor credit or markdown needed before compliance window. Est. $38K in at-risk inventory value.'},
-      {type:'amber',title:'▲ Edibles sell-through declining',sev:'Medium',body:'Seasonal edible SKUs at 44 days DOI. Deal penetration on edibles down 22% vs. prior period. Promotional push or bundle strategy recommended.'},
-    ]
+  cannabis:{
+    label:'Cannabis retail', sub:'11 dispensaries · FY 2024',
+    slug:'cannabis',
+    rev:'$10.25M', margin:'52.3%', marginLabel:'Gross margin',
+    ticket:'$58.40', ticketLabel:'Avg basket', ticketSub:'175K transactions',
+    labor:'19.8%', laborLabel:'DSA labor %', laborAlert:'⚠ loc 4 at 31%',
+    cats:[{name:'Flower',pct:38,w:100,color:'#10B981'},{name:'Vapes & carts',pct:27,w:71,color:'#3B82F6'},{name:'Edibles',pct:18,w:47,color:'#F59E0B'},{name:'Concentrates',pct:11,w:29,color:'#8B5CF6'},{name:'Accessories',pct:6,w:16,color:'#6B7280'}],
+    catLabel:'Revenue by category',
+    locations:[{name:'Main St Flagship',score:92,color:'#10B981',tc:'#6EE7B7'},{name:'Eastside Dispo',score:85,color:'#10B981',tc:'#6EE7B7'},{name:'Airport Rd Store',score:77,color:'#10B981',tc:'#6EE7B7'},{name:'Northgate Dispo',score:66,color:'#F59E0B',tc:'#FCD34D'},{name:'Westpark Location',score:59,color:'#F59E0B',tc:'#FCD34D'},{name:'College District',score:48,color:'#EF4444',tc:'#FCA5A5'},{name:'Southside Express',score:41,color:'#EF4444',tc:'#FCA5A5'}],
+    locLabel:'Dispensary health scores',
+    inv:[{name:'Indica flower (aged)',days:68,pct:100,color:'#EF4444'},{name:'Seasonal edibles',days:44,pct:65,color:'#EF4444'},{name:'Legacy vape SKUs',days:31,pct:46,color:'#F59E0B'},{name:'Core SKUs (avg)',days:14,pct:21,color:'#10B981'}],
+    invLabel:'Inventory — days on hand', invTarget:'Target DOI: < 21 days (compliance risk above 60)',
+    overviewCards:[{type:'red',title:'⚡ DSA overstaffing — location 4',sev:'High',body:'DSA labor at 31% of revenue vs. 19.8% avg. Low transactions-per-DSA-hour midday. Reduce floor coverage 11am–2pm.'},{type:'red',title:'⚡ Aging flower — compliance risk',sev:'High',body:'Indica SKUs at 68 days DOI across 4 dispensaries. Vendor credit or markdown needed. ~$38K at risk.'},{type:'amber',title:'▲ Edibles sell-through declining',sev:'Medium',body:'Seasonal edibles at 44 days DOI. Deal penetration down 22% vs. prior period. Bundle strategy recommended.'}],
+    invDash:{kpis:[{label:'Avg DOI',val:'14 days',delta:'✓ on target',dc:'#6EE7B7'},{label:'Compliance risk SKUs',val:'2',vc:'red',delta:'⚠ DOI > 60d',dc:'#FCA5A5'},{label:'Sell-through rate',val:'68.4%',delta:'↓ -3% MoM',dc:'#FCD34D'},{label:'At-risk value',val:'$38K',vc:'amber',delta:'⚠ aged flower',dc:'#FCD34D'},{label:'Fill rate',val:'91.2%',delta:'✓ healthy',dc:'#6EE7B7'}],bars:[{name:'Indica flower (aged)',label:'68 days — compliance risk',pct:100,color:'#EF4444',tc:'#FCA5A5'},{name:'Seasonal edibles',label:'44 days — markdown needed',pct:65,color:'#EF4444',tc:'#FCA5A5'},{name:'Legacy vape SKUs',label:'31 days — monitor',pct:46,color:'#F59E0B',tc:'#FCD34D'},{name:'Core flower',label:'14 days — healthy',pct:21,color:'#10B981',tc:'var(--muted)'},{name:'Vapes (core)',label:'11 days — healthy',pct:16,color:'#10B981',tc:'var(--muted)'}],barTitle:'Days on hand by category',barNote:'Target: < 21 days · Compliance risk > 60 days · Red = immediate action',cards:[{type:'red',title:'⚡ Aged flower — compliance window closing',sev:'High',body:'68 days DOI across 4 dispensaries. Initiate vendor credit conversation and run bundle promotion this week.'},{type:'amber',title:'▲ Edibles sell-through declining',sev:'Medium',body:'44 days DOI. Pair with flower in a bundle deal. Pause edibles reorders until DOI drops below 20.'}]},
+    staffDash:{kpis:[{label:'DSA labor %',val:'19.8%',delta:'✓ on target',dc:'#6EE7B7'},{label:'Problem locations',val:'1',vc:'red',delta:'⚠ action needed',dc:'#FCA5A5'},{label:'Transactions / DSA hr',val:'4.2',delta:'✓ healthy',dc:'#6EE7B7'},{label:'Excess payroll',val:'$41K',vc:'amber',delta:'⚠ annualized',dc:'#FCD34D'},{label:'Callout rate',val:'3.8%',delta:'↑ monitor',dc:'#FCD34D'}],bars:[{name:'Location 4',label:'31% — overstaffed',pct:100,color:'#EF4444',tc:'#FCA5A5'},{name:'Location 7',label:'24% — slightly elevated',pct:77,color:'#F59E0B',tc:'#FCD34D'},{name:'Chain avg',label:'19.8%',pct:64,color:'#3B82F6',tc:'var(--muted)'},{name:'Main St',label:'16% — efficient',pct:52,color:'#10B981',tc:'var(--muted)'},{name:'Airport Rd',label:'14% — most efficient',pct:45,color:'#10B981',tc:'var(--muted)'}],barTitle:'DSA labor % by dispensary',barNote:'Red > 28% · Amber 22–28% · Green < 22%',cards:[{type:'red',title:'⚡ DSA overstaffing — location 4',sev:'High',body:'31% DSA labor vs. 19.8% avg. Low transaction density 11am–2pm. Remove 1 DSA from midday shift, 4 days/week. Est. savings $3,400/month.'},{type:'amber',title:'▲ Location 7 slightly elevated',sev:'Medium',body:'24% DSA labor. Monitor for 2 weeks before acting — new location still ramping up customer volume.'}]},
+    autoDash:{isDesc:true}
   }
 };
 
-function switchVersion(v) {
-  document.querySelectorAll('.vs-btn').forEach(b => b.classList.remove('active'));
-  event.target.classList.add('active');
-  renderVersion(v);
+let currentInd = 'retail';
+let currentDash = 'overview';
+
+function renderDemo() {
+  const ind = industryData[currentInd];
+  const monthlyData = [729,648,782,793,839,835,831,795,827,926,1019,1226];
+  const maxRev = Math.max(...monthlyData);
+  const url = `atlas-ops.io / ${ind.slug} / ${currentDash === 'overview' ? 'executive-summary' : currentDash}`;
+  document.getElementById('demoUrl').textContent = url;
+
+  let content = '';
+
+  if (currentDash === 'overview') {
+    content = `
+      <div class="demo-topbar">
+        <div>
+          <div class="demo-topbar-title">Executive summary</div>
+          <div class="demo-topbar-sub">${ind.label} · ${ind.sub}</div>
+        </div>
+        <div style="display:flex;gap:6px"><span class="badge-green">+4.5% WoW</span><span class="badge-amber">3 alerts</span></div>
+      </div>
+      <div class="kpi-strip">
+        <div class="kpi-tile"><div class="kpi-tile-label">Annual revenue</div><div class="kpi-tile-val">${ind.rev}</div><div class="kpi-tile-delta" style="color:#6EE7B7">↑ +20.4% MoM</div></div>
+        <div class="kpi-tile"><div class="kpi-tile-label">${ind.marginLabel}</div><div class="kpi-tile-val">${ind.margin}</div><div class="kpi-tile-delta" style="color:#6EE7B7">✓ on target</div></div>
+        <div class="kpi-tile"><div class="kpi-tile-label">${ind.ticketLabel}</div><div class="kpi-tile-val">${ind.ticket}</div><div class="kpi-tile-delta" style="color:var(--muted)">${ind.ticketSub}</div></div>
+        <div class="kpi-tile"><div class="kpi-tile-label">${ind.laborLabel}</div><div class="kpi-tile-val red">${ind.labor}</div><div class="kpi-tile-delta" style="color:#FCA5A5">${ind.laborAlert}</div></div>
+        <div class="kpi-tile"><div class="kpi-tile-label">Active alerts</div><div class="kpi-tile-val amber">3</div><div class="kpi-tile-delta" style="color:#FCD34D">needs attention</div></div>
+      </div>
+      <div class="charts-grid">
+        <div class="chart-card">
+          <div class="chart-card-title">Monthly revenue</div>
+          <div class="bar-chart" style="height:80px;display:flex;align-items:flex-end;gap:4px">
+            ${monthlyData.map(v=>`<div style="flex:1;display:flex;flex-direction:column;align-items:center"><div style="width:100%;border-radius:2px 2px 0 0;min-height:3px;height:${Math.round((v/maxRev)*72)}px;background:${v>=1000?'#60A5FA':'#3B82F6'}"></div></div>`).join('')}
+          </div>
+          <div style="display:flex;justify-content:space-between;margin-top:4px"><span style="font-family:var(--mono);font-size:8px;color:var(--muted)">Jan</span><span style="font-family:var(--mono);font-size:8px;color:var(--muted)">Dec</span></div>
+        </div>
+        <div class="chart-card">
+          <div class="chart-card-title">${ind.catLabel}</div>
+          <div class="cat-legend">${ind.cats.map(c=>`<div class="cat-leg-row"><div class="cat-leg-dot" style="background:${c.color}"></div><span class="cat-leg-name">${c.name}</span><div class="cat-bar-track"><div class="cat-bar-fill" style="width:${c.w}%;background:${c.color}"></div></div><span class="cat-leg-pct">${c.pct}%</span></div>`).join('')}</div>
+        </div>
+        <div class="chart-card">
+          <div class="chart-card-title">${ind.locLabel}</div>
+          <div class="store-list">${ind.locations.map(s=>`<div class="store-item"><span class="store-item-name" style="color:${s.tc}">${s.name}</span><div class="store-bar-track"><div class="store-bar-fill" style="width:${s.score}%;background:${s.color}"></div></div><span class="store-item-score" style="color:${s.tc}">${s.score}</span></div>`).join('')}</div>
+        </div>
+        <div class="chart-card">
+          <div class="chart-card-title">${ind.invLabel}</div>
+          <div class="inv-bars">${ind.inv.map(i=>`<div class="inv-row"><span class="inv-name">${i.name}</span><div class="inv-track"><div class="inv-fill" style="width:${i.pct}%;background:${i.color}"><span class="inv-fill-label">${i.days}d</span></div></div></div>`).join('')}</div>
+          <div class="inv-target">${ind.invTarget}</div>
+        </div>
+      </div>
+      <div class="dc-section-label">Decision cards — action required</div>
+      <div class="decision-cards">${ind.overviewCards.map(c=>`<div class="dc dc-${c.type}"><div class="dc-head"><span class="dc-title">${c.title}</span><span class="sev sev-${c.type==='red'?'high':'med'}">${c.sev}</span></div><div class="dc-body">${c.body}</div></div>`).join('')}</div>`;
+  } else {
+    const dashKey = {inventory:'invDash', staffing:'staffDash', automation:'autoDash'}[currentDash];
+    const d = ind[dashKey];
+    const dashNames = {inventory:'Inventory intelligence',staffing:'Staffing optimization',automation:'Workflow automation'};
+
+    if (currentDash === 'automation') {
+      content = `
+        <div class="demo-topbar">
+          <div>
+            <div class="demo-topbar-title">Workflow automation</div>
+            <div class="demo-topbar-sub">${ind.label} · ${ind.sub}</div>
+          </div>
+          <div style="display:flex;gap:6px"><span class="badge-green">included in retainer</span></div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
+          <div style="background:var(--navy-3);border:0.5px solid var(--border);border-left:2px solid #3B82F6;border-radius:0 10px 10px 0;padding:1rem 1.1rem">
+            <div style="font-family:var(--mono);font-size:10px;color:#93C5FD;text-transform:uppercase;letter-spacing:.07em;margin-bottom:.5rem">Weekly — every monday</div>
+            <div style="font-size:14px;font-weight:500;margin-bottom:.4rem;color:var(--off-white)">Decision brief</div>
+            <div style="font-size:12px;color:var(--muted);line-height:1.65">Every Monday you receive 3–5 specific action items based on last week's data. Not a report — a short list of exactly what to do and why, written in plain language your team can act on the same day.</div>
+          </div>
+          <div style="background:var(--navy-3);border:0.5px solid var(--border);border-left:2px solid #10B981;border-radius:0 10px 10px 0;padding:1rem 1.1rem">
+            <div style="font-family:var(--mono);font-size:10px;color:#6EE7B7;text-transform:uppercase;letter-spacing:.07em;margin-bottom:.5rem">Monthly — on the 1st</div>
+            <div style="font-size:14px;font-weight:500;margin-bottom:.4rem;color:var(--off-white)">Platform refresh</div>
+            <div style="font-size:12px;color:var(--muted);line-height:1.65">Each month I recalibrate your KPI targets based on actual performance, update any metrics that aren't useful, and add new ones as your business evolves. Your platform never goes stale.</div>
+          </div>
+          <div style="background:var(--navy-3);border:0.5px solid var(--border);border-left:2px solid #F59E0B;border-radius:0 10px 10px 0;padding:1rem 1.1rem">
+            <div style="font-family:var(--mono);font-size:10px;color:#FCD34D;text-transform:uppercase;letter-spacing:.07em;margin-bottom:.5rem">Real-time</div>
+            <div style="font-size:14px;font-weight:500;margin-bottom:.4rem;color:var(--off-white)">Automated alerts</div>
+            <div style="font-size:12px;color:var(--muted);line-height:1.65">When something crosses a threshold — labor % spikes, inventory hits a danger zone, wait times climb — you get an alert before it shows up in the P&L. No more finding out at the end of the month.</div>
+          </div>
+          <div style="background:var(--navy-3);border:0.5px solid var(--border);border-left:2px solid #8B5CF6;border-radius:0 10px 10px 0;padding:1rem 1.1rem">
+            <div style="font-family:var(--mono);font-size:10px;color:#C4B5FD;text-transform:uppercase;letter-spacing:.07em;margin-bottom:.5rem">On demand</div>
+            <div style="font-size:14px;font-weight:500;margin-bottom:.4rem;color:var(--off-white)">Ad-hoc analysis</div>
+            <div style="font-size:12px;color:var(--muted);line-height:1.65">Something comes up mid-week — a vendor question, a staffing decision, an unusual trend. Send it over and I'll turn it around within 24 hours. No tickets, no waiting in a queue.</div>
+          </div>
+        </div>`;
+      document.getElementById('demoContent').innerHTML = content;
+      return;
+    }
+    content = `
+      <div class="demo-topbar">
+        <div>
+          <div class="demo-topbar-title">${dashNames[currentDash]}</div>
+          <div class="demo-topbar-sub">${ind.label} · ${ind.sub}</div>
+        </div>
+        <div style="display:flex;gap:6px"><span class="badge-amber">${currentDash==='automation'?'12 automations active':currentDash==='staffing'?'2 flagged locations':'2 aging alerts'}</span></div>
+      </div>
+      <div class="kpi-strip">${d.kpis.map(k=>`<div class="kpi-tile"><div class="kpi-tile-label">${k.label}</div><div class="kpi-tile-val${k.vc?' '+k.vc:''}">${k.val}</div><div class="kpi-tile-delta" style="color:${k.dc}">${k.delta}</div></div>`).join('')}</div>
+      <div class="charts-grid">
+        <div class="chart-card" style="grid-column:span 2">
+          <div class="chart-card-title">${d.barTitle}</div>
+          <div style="display:flex;flex-direction:column;gap:7px;padding-top:4px">${d.bars.map(b=>`<div class="inv-row"><span class="inv-name" style="color:${b.tc};width:160px">${b.name}</span><div class="inv-track"><div class="inv-fill" style="width:${b.pct}%;background:${b.color}"><span class="inv-fill-label">${b.label}</span></div></div></div>`).join('')}</div>
+          <div style="font-family:var(--mono);font-size:9px;color:var(--muted);margin-top:8px">${d.barNote}</div>
+        </div>
+      </div>
+      <div class="dc-section-label">${dashNames[currentDash]} — decision cards</div>
+      <div class="decision-cards">${d.cards.map(c=>`<div class="dc dc-${c.type}"><div class="dc-head"><span class="dc-title">${c.title}</span><span class="sev sev-${c.type==='red'?'high':'med'}">${c.sev}</span></div><div class="dc-body">${c.body}</div></div>`).join('')}</div>`;
+  }
+  document.getElementById('demoContent').innerHTML = content;
 }
 
-function renderVersion(v) {
-  const d = versions[v];
-  document.getElementById('chromeUrl').textContent = d.url;
-  document.getElementById('demoSub').textContent = d.sub;
-  document.getElementById('kpi2label').textContent = d.kpi2label;
-  document.getElementById('kpi2val').textContent = d.kpi2val;
-  document.getElementById('kpi3label').textContent = d.kpi3label;
-  document.getElementById('kpi3val').textContent = d.kpi3val;
-  document.getElementById('kpi3sub').textContent = d.kpi3sub;
-  document.getElementById('kpi4label').textContent = d.kpi4label;
-  document.getElementById('kpi4val').textContent = d.kpi4val;
-  document.getElementById('kpi4sub').textContent = d.kpi4sub;
-  document.getElementById('catChartTitle').textContent = d.catTitle;
-  document.getElementById('locationChartTitle').textContent = d.locationTitle;
-  document.getElementById('invChartTitle').textContent = d.invTitle;
-  document.getElementById('invTarget').textContent = d.invTarget;
-
-  const catEl = document.getElementById('catLegend');
-  catEl.innerHTML = d.cats.map(c => `
-    <div class="cat-leg-row">
-      <div class="cat-leg-dot" style="background:${c.color}"></div>
-      <span class="cat-leg-name">${c.name}</span>
-      <div class="cat-bar-track"><div class="cat-bar-fill" style="width:${c.w}%;background:${c.color}"></div></div>
-      <span class="cat-leg-pct">${c.pct}%</span>
-    </div>`).join('');
-
-  const storeEl = document.getElementById('storeList');
-  storeEl.innerHTML = d.locations.map(s => `
-    <div class="store-item">
-      <span class="store-item-name" style="color:${s.textColor}">${s.name}</span>
-      <div class="store-bar-track"><div class="store-bar-fill" style="width:${s.pct}%;background:${s.color}"></div></div>
-      <span class="store-item-score" style="color:${s.textColor}">${s.score}</span>
-    </div>`).join('');
-
-  const invEl = document.getElementById('invBars');
-  invEl.innerHTML = d.inv.map(i => `
-    <div class="inv-row">
-      <span class="inv-name" style="color:${i.color==='#10B981'?'var(--muted)':i.color==='#F59E0B'?'#FCD34D':'#FCA5A5'}">${i.name}</span>
-      <div class="inv-track"><div class="inv-fill" style="width:${i.pct}%;background:${i.color}"><span class="inv-fill-label">${i.days}d</span></div></div>
-    </div>`).join('');
-
-  const dcEl = document.getElementById('decisionCards');
-  dcEl.innerHTML = d.cards.map(c => `
-    <div class="dc dc-${c.type}">
-      <div class="dc-head"><span class="dc-title">${c.title}</span><span class="sev sev-${c.type==='red'?'high':'med'}">${c.sev}</span></div>
-      <div class="dc-body">${c.body}</div>
-    </div>`).join('');
-}
-
-function buildMonthlyBars() {
-  const months = [729,648,782,793,839,835,831,795,827,926,1019,1226];
-  const maxVal = Math.max(...months);
-  const container = document.getElementById('monthlyBars');
-  container.innerHTML = '';
-  months.forEach(v => {
-    const col = document.createElement('div');
-    col.className = 'bar-col';
-    const h = Math.round((v / maxVal) * 72);
-    col.innerHTML = `<div class="bar-fill ${v>=1000?'peak':'normal'}" style="height:${h}px"></div>`;
-    container.appendChild(col);
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('#industrySwitcher .vs-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('#industrySwitcher .vs-btn').forEach(b=>b.classList.remove('active'));
+      this.classList.add('active');
+      currentInd = this.dataset.ind;
+      renderDemo();
+    });
   });
-}
+  document.querySelectorAll('#dashSwitcher .vs-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('#dashSwitcher .vs-btn').forEach(b=>b.classList.remove('active'));
+      this.classList.add('active');
+      currentDash = this.dataset.dash;
+      renderDemo();
+    });
+  });
+  renderDemo();
+});
 
 async function handleSubmit(e) {
   e.preventDefault();
@@ -644,11 +658,7 @@ async function handleSubmit(e) {
   btn.textContent = 'Sending...';
   btn.disabled = true;
   try {
-    const res = await fetch(form.action, {
-      method: 'POST',
-      body: new FormData(form),
-      headers: { 'Accept': 'application/json' }
-    });
+    const res = await fetch(form.action, {method:'POST',body:new FormData(form),headers:{'Accept':'application/json'}});
     if (res.ok) {
       form.reset();
       document.getElementById('formSuccess').style.display = 'block';
@@ -656,16 +666,12 @@ async function handleSubmit(e) {
     } else {
       btn.textContent = 'Send message →';
       btn.disabled = false;
-      alert('Something went wrong — please email Carterbloomquist120@gmail.com directly.');
     }
   } catch {
     btn.textContent = 'Send message →';
     btn.disabled = false;
   }
 }
-
-buildMonthlyBars();
-renderVersion('retail');
 </script>
 </body>
 </html>
